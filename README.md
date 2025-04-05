@@ -1,1 +1,1 @@
-# responsive-table
+# react-responsive-table
