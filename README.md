@@ -13,7 +13,7 @@ todo: 추가하기!!
 
 ## Installation
 ```bash
-npm install react-relative-table
+npm install react-responsive-table
 ```
 
 ## License
