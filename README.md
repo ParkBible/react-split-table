@@ -1,4 +1,4 @@
-# react-responsive-table
+# react-split-table
 > A flexible and extensible React library for building responsive data tables
 
 
@@ -13,7 +13,7 @@ todo: 추가하기!!
 
 ## Installation
 ```bash
-npm install react-responsive-table
+npm install react-split-table
 ```
 
 ## License
