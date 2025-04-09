@@ -1,15 +1,16 @@
 import { useEffect, useRef } from "react";
 import "../styles/table.css";
-import { TableProps } from "./App";
+import { Column, TableProps } from "../constants/tableInterfaces";
 
 export const Table = (props: TableProps) => {
     const { columns, rows, rowTitle } = props;
+        
     const headerRef = useRef<HTMLHeadElement>(null);
     const rowRef = useRef<HTMLDivElement>(null);
     const columnsRef = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
-        splitCells()
+        splitCells();
     }, []);
 
     const splitCells = () => {
@@ -25,11 +26,15 @@ export const Table = (props: TableProps) => {
         });
     }
 
+    const getColumnOrder = (column: Column) => {
+        return column.title === rowTitle ? 0 : column.order;
+    }
+
     return (
         <div className="table-wrapper">
             <header ref={ headerRef } className="table-header">
                 {columns.map(column => (
-                    <div key={ column.order } className="column-title cell" style={{ order: column.order }}>
+                    <div key={ column.order } className="column-title cell" style={{ order: getColumnOrder(column) }}>
                         {column.title}
                     </div>
                 ))}
@@ -39,7 +44,7 @@ export const Table = (props: TableProps) => {
                     <div key={ row.order } style={{ order: row.order }}>
                         <div ref={ element => { columnsRef.current[index] = element; } } className="table-row">
                             {columns.map(column => (
-                                <div className="cell" style={{ order: column.order }}>
+                                <div key={column.order} className="cell" style={{ order: getColumnOrder(column) }}>
                                     {row[column.title]?.toString()}
                                 </div>
                             ))}
