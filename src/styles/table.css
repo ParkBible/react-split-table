@@ -1,3 +1,7 @@
+.tables-wrapper {
+    background-color: chocolate;
+}
+
 .table-wrapper {
     border-collapse: collapse;
     width: 40%;
@@ -18,4 +22,5 @@
 
 .table-wrapper .cell {
     border: 1px solid black;
+    line-height: 1.4;
 }

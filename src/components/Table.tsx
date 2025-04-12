@@ -49,7 +49,10 @@ export const Table = (props: {
     }
 
     const checkIsCellOverflowing = (cell: HTMLDivElement) => {        
-        return true;
+        const lineHeight = parseFloat(getComputedStyle(cell).lineHeight);
+        const line = Math.round(cell.scrollHeight / lineHeight);        
+
+        return line > 1;
     }
 
     return (
