@@ -1,9 +1,9 @@
 import { Column, Row } from "../constants/tableInterfaces";
-import Table from "./Table";
+import TableWrapper from "./TableWrapper";
 
 const exampleColumns: Column[] = [
-    { order: 1, title: "name" },
-    { order: 4, title: "age" },
+    { order: 4, title: "name" },
+    { order: 1, title: "age" },
     { order: 3, title: "occupation" },
     { order: 2, title: "phone" },
     { order: 5, title: "address" }
@@ -17,7 +17,7 @@ const exampleRows: Row[] = [
 
 export const App = () => {
     return (
-        <Table columns={exampleColumns} rows={exampleRows} rowTitle="age" />
+        <TableWrapper columns={exampleColumns} rows={exampleRows} rowTitle="name" />
     )
 }
 

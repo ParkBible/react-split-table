@@ -1,25 +1,43 @@
 import { useEffect, useRef } from "react";
-import "../styles/table.css";
-import { Column, TableProps } from "../constants/tableInterfaces";
+import { Column, TableProp } from "../constants/tableInterfaces";
 
-export const Table = (props: TableProps) => {
-    const { columns, rows, rowTitle } = props;
-        
-    const headerRef = useRef<HTMLHeadElement>(null);
-    const rowRef = useRef<HTMLDivElement>(null);
-    const columnsRef = useRef<(HTMLDivElement | null)[]>([]);
+export const Table = (props: {
+    info: TableProp;
+    windowWidth: number;
+    onCellOverflowing: () => void;
+}) => {
+    const { columns, rows, rowTitle } = props.info;
+    const tableRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         splitCells();
     }, []);
 
+    useEffect(() => {
+        if (!tableRef.current) return;
+
+        const cells = tableRef.current.querySelectorAll<HTMLDivElement>(".cell");
+
+        for (let cell of cells) {
+            if (checkIsCellOverflowing(cell)) {                
+                props.onCellOverflowing();
+
+                return;
+            }
+        }
+    }, [props.windowWidth]);
+
     const splitCells = () => {
         const columnCount = columns.length;
         const rowCount = rows.length;
 
-        headerRef.current?.style.setProperty("grid-template-columns", `repeat(${columnCount}, 1fr)`);
-        rowRef.current?.style.setProperty("grid-template-rows", `repeat(${rowCount}, 1fr)`);
-        columnsRef.current.forEach(column => {
+        const header = tableRef.current?.querySelector<HTMLHeadElement>(".table-header");
+        const body = tableRef.current?.querySelector<HTMLDivElement>(".table-body");
+        const row = tableRef.current?.querySelectorAll<HTMLDivElement>(".table-row");
+
+        header?.style.setProperty("grid-template-columns", `repeat(${columnCount}, 1fr)`);
+        body?.style.setProperty("grid-template-rows", `repeat(${rowCount}, 1fr)`);
+        row?.forEach(column => {
             if (column) {
                 column.style.setProperty("grid-template-columns", `repeat(${columnCount}, 1fr)`);
             }
@@ -30,19 +48,23 @@ export const Table = (props: TableProps) => {
         return column.title === rowTitle ? 0 : column.order;
     }
 
+    const checkIsCellOverflowing = (cell: HTMLDivElement) => {        
+        return true;
+    }
+
     return (
-        <div className="table-wrapper">
-            <header ref={ headerRef } className="table-header">
+        <div className="table-wrapper" ref={tableRef}>
+            <header className="table-header">
                 {columns.map(column => (
                     <div key={ column.order } className="column-title cell" style={{ order: getColumnOrder(column) }}>
                         {column.title}
                     </div>
                 ))}
             </header>
-            <div ref={ rowRef } className="table-body">
-                {rows.map((row, index) => (
+            <div className="table-body">
+                {rows.map(row => (
                     <div key={ row.order } style={{ order: row.order }}>
-                        <div ref={ element => { columnsRef.current[index] = element; } } className="table-row">
+                        <div className="table-row">
                             {columns.map(column => (
                                 <div key={column.order} className="cell" style={{ order: getColumnOrder(column) }}>
                                     {row[column.title]?.toString()}
@@ -53,7 +75,7 @@ export const Table = (props: TableProps) => {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default Table;
