@@ -1,15 +1,15 @@
-.tables-wrapper {
-    background-color: chocolate;
-}
-
 .table-wrapper {
+    border: 1px solid black;
+    border-radius: 10px;
     border-collapse: collapse;
     width: 40%;
+    margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .table-wrapper header {
     display: grid;
-    background-color: #f0f0f0;
+    background-color: #e8dfe8;
 }
 
 .table-wrapper .table-body {
@@ -21,6 +21,5 @@
 }
 
 .table-wrapper .cell {
-    border: 1px solid black;
     line-height: 1.4;
 }

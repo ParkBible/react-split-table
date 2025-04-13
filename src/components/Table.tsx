@@ -1,36 +1,35 @@
 import { useEffect, useRef } from "react";
-import { Column, TableProp } from "../constants/tableInterfaces";
+import { TableProp } from "../constants/tableInterfaces";
 
 export const Table = (props: {
     info: TableProp;
-    windowWidth: number;
-    onCellOverflowing: () => void;
+    wrapperWidth: number;
+    onCellOverflowing: (tableNum: number) => void;
 }) => {
-    const { columns, rows, rowTitle } = props.info;
+    const { columns, rows } = props.info;
     const tableRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         splitCells();
-    }, []);
+    }, [props.info.columns]);
 
     useEffect(() => {
-        if (!tableRef.current) return;
+        if (!tableRef.current || columns.length === 1) return;
 
         const cells = tableRef.current.querySelectorAll<HTMLDivElement>(".cell");
 
-        for (let cell of cells) {
-            if (checkIsCellOverflowing(cell)) {                
-                props.onCellOverflowing();
+        for (let cell of cells) {     
+            if (checkIsCellOverflowing(cell)) {            
+                props.onCellOverflowing(props.info.tableNum);                
 
                 return;
             }
         }
-    }, [props.windowWidth]);
+    }, [props.wrapperWidth, props.info.columns]);
 
-    const splitCells = () => {
-        const columnCount = columns.length;
+    const splitCells = () => {        
+        const columnCount = columns.length;        
         const rowCount = rows.length;
-
         const header = tableRef.current?.querySelector<HTMLHeadElement>(".table-header");
         const body = tableRef.current?.querySelector<HTMLDivElement>(".table-body");
         const row = tableRef.current?.querySelectorAll<HTMLDivElement>(".table-row");
@@ -44,13 +43,9 @@ export const Table = (props: {
         });
     }
 
-    const getColumnOrder = (column: Column) => {
-        return column.title === rowTitle ? 0 : column.order;
-    }
-
-    const checkIsCellOverflowing = (cell: HTMLDivElement) => {        
+    const checkIsCellOverflowing = (cell: HTMLDivElement) => {
         const lineHeight = parseFloat(getComputedStyle(cell).lineHeight);
-        const line = Math.round(cell.scrollHeight / lineHeight);        
+        const line = Math.round(cell.scrollHeight / lineHeight);
 
         return line > 1;
     }
@@ -59,7 +54,7 @@ export const Table = (props: {
         <div className="table-wrapper" ref={tableRef}>
             <header className="table-header">
                 {columns.map(column => (
-                    <div key={ column.order } className="column-title cell" style={{ order: getColumnOrder(column) }}>
+                    <div key={ column.order } className="column-title cell" style={{ order: column.order }}>
                         {column.title}
                     </div>
                 ))}
@@ -69,7 +64,7 @@ export const Table = (props: {
                     <div key={ row.order } style={{ order: row.order }}>
                         <div className="table-row">
                             {columns.map(column => (
-                                <div key={column.order} className="cell" style={{ order: getColumnOrder(column) }}>
+                                <div key={column.order} className="cell" style={{ order: column.order }}>
                                     {row[column.title]?.toString()}
                                 </div>
                             ))}
