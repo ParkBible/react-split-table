@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import "../styles/table.css";
 import {TableProp, TableWrapperProp} from "../constants/tableInterfaces";
 import Table from "./Table";
+import {debounce} from "../util/debounce";
 
 export const TableWrapper = (props: TableWrapperProp) => {
     const {columns, rows} = props;
@@ -23,13 +24,14 @@ export const TableWrapper = (props: TableWrapperProp) => {
     useEffect(() => {
         if (tablesInfo.length === 0) return;
 
-        const observer = new ResizeObserver(entries => {
+        const resizeHandler = debounce((entries: ResizeObserverEntry[]) => {
             for (let entry of entries) {
                 const width = entry.contentRect.width;
                 setWrapperWidth(width);
             }
-        });
+        }, 100);
 
+        const observer = new ResizeObserver(resizeHandler);
         observer.observe(document.querySelector<HTMLDivElement>(".tables-wrapper")!);
 
         return () => {
