@@ -1,25 +1,28 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import "../styles/table.css";
-import { TableProp, TableWrapperProp } from "../constants/tableInterfaces";
+import {TableProp, TableWrapperProp} from "../constants/tableInterfaces";
 import Table from "./Table";
 
 export const TableWrapper = (props: TableWrapperProp) => {
-    const { columns, rows } = props;
-    
+    const {columns, rows} = props;
+
     const [wrapperWidth, setWrapperWidth] = useState<number>(0);
     const [tablesInfo, setTablesInfo] = useState<TableProp[]>([]);
 
     useEffect(() => {
-        setTablesInfo([...tablesInfo, {
-            columns: columns.sort((a, b) => a.order - b.order),
-            rows: rows,
-            tableNum: 0,
-        }]);
+        setTablesInfo([
+            ...tablesInfo,
+            {
+                columns: columns.sort((a, b) => a.order - b.order),
+                rows: rows,
+                tableNum: 0,
+            },
+        ]);
     }, []);
 
     useEffect(() => {
         if (tablesInfo.length === 0) return;
-        
+
         const observer = new ResizeObserver(entries => {
             for (let entry of entries) {
                 const width = entry.contentRect.width;
@@ -34,29 +37,29 @@ export const TableWrapper = (props: TableWrapperProp) => {
         };
     }, [tablesInfo]);
 
-    const splitTable = (tableNum: number) => {    
+    const splitTable = (tableNum: number) => {
         setTablesInfo(prev => {
             const targetTableIndex = prev.findIndex(t => t.tableNum === tableNum);
             if (targetTableIndex === -1) return prev;
 
             const targetTable = prev[targetTableIndex];
-            const { columns, rows } = targetTable;
-    
+            const {columns, rows} = targetTable;
+
             const isLastTable = tableNum === prev.length - 1;
-            const columnCount = columns.length;    
-            
+            const columnCount = columns.length;
+
             if (columnCount < 2) return prev;
             const splitIndex = columnCount - 1;
-    
+
             const firstHalfColumns = columns.slice(0, splitIndex);
             const secondHalfColumns = columns.slice(splitIndex);
-    
+
             const firstHalf = {
                 columns: firstHalfColumns,
                 rows,
                 tableNum: tableNum,
             };
-    
+
             const secondHalf = {
                 columns: secondHalfColumns,
                 rows,
@@ -73,7 +76,7 @@ export const TableWrapper = (props: TableWrapperProp) => {
                 if (nextTable) {
                     newTablesInfo[targetTableIndex] = {
                         ...firstHalf,
-                        columns: firstHalfColumns
+                        columns: firstHalfColumns,
                     };
 
                     const nextTableColumns = nextTable.columns.concat(secondHalfColumns);
@@ -86,7 +89,7 @@ export const TableWrapper = (props: TableWrapperProp) => {
             } else {
                 newTablesInfo.splice(targetTableIndex, 1, firstHalf, secondHalf);
             }
-            
+
             return newTablesInfo;
         });
     };
@@ -94,8 +97,8 @@ export const TableWrapper = (props: TableWrapperProp) => {
     return (
         <div className="tables-wrapper">
             {tablesInfo.map(info => (
-                <Table 
-                    key={info.tableNum} 
+                <Table
+                    key={info.tableNum}
                     info={info}
                     wrapperWidth={wrapperWidth}
                     onCellOverflowing={splitTable}
@@ -103,6 +106,6 @@ export const TableWrapper = (props: TableWrapperProp) => {
             ))}
         </div>
     );
-}
+};
 
 export default TableWrapper;
