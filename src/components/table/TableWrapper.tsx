@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import "../styles/table.css";
+import "../../styles/table.css";
 import {TableProp, TableWrapperProp} from "../../constants/tableInterfaces";
 import Table from "./Table";
 
