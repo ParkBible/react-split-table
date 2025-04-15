@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import "../styles/table.css";
-import {TableProp, TableWrapperProp} from "../constants/tableInterfaces";
+import {TableProp, TableWrapperProp} from "../../constants/tableInterfaces";
 import Table from "./Table";
 
 export const TableWrapper = (props: TableWrapperProp) => {

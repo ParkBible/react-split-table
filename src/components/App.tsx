@@ -1,5 +1,5 @@
 import {Column, Row} from "../constants/tableInterfaces";
-import TableWrapper from "./TableWrapper";
+import TableWrapper from "./table/TableWrapper";
 
 const exampleColumns: Column[] = [
     {order: 4, title: "name"},
