@@ -1,0 +1,21 @@
+.table-wrapper {
+    border-collapse: collapse;
+    width: 40%;
+}
+
+.table-wrapper header {
+    display: grid;
+    background-color: #f0f0f0;
+}
+
+.table-wrapper .table-body {
+    display: grid;
+}
+
+.table-wrapper .table-body .table-row {
+    display: grid;
+}
+
+.table-wrapper .cell {
+    border: 1px solid black;
+}
