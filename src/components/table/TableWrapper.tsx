@@ -1,17 +1,18 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import "../../styles/table.css";
 import {TableProp, TableWrapperProp} from "../../constants/tableInterfaces";
 import Table from "./Table";
+import {debounce} from "../util/debounce";
 
 export const TableWrapper = (props: TableWrapperProp) => {
-    const {columns, rows} = props;
+    const {columns, rows, className} = props;
 
     const [wrapperWidth, setWrapperWidth] = useState<number>(0);
     const [tablesInfo, setTablesInfo] = useState<TableProp[]>([]);
+    const tableWrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setTablesInfo([
-            ...tablesInfo,
             {
                 columns: columns.sort((a, b) => a.order - b.order),
                 rows: rows,
@@ -23,14 +24,15 @@ export const TableWrapper = (props: TableWrapperProp) => {
     useEffect(() => {
         if (tablesInfo.length === 0) return;
 
-        const observer = new ResizeObserver(entries => {
+        const resizeHandler = debounce((entries: ResizeObserverEntry[]) => {
             for (let entry of entries) {
                 const width = entry.contentRect.width;
                 setWrapperWidth(width);
             }
-        });
+        }, 100);
 
-        observer.observe(document.querySelector<HTMLDivElement>(".tables-wrapper")!);
+		const observer = new ResizeObserver(resizeHandler);
+        observer.observe(tableWrapperRef.current!);
 
         return () => {
             observer.disconnect();
@@ -95,7 +97,7 @@ export const TableWrapper = (props: TableWrapperProp) => {
     };
 
     return (
-        <div className="tables-wrapper">
+        <div className={className} ref={tableWrapperRef}>
             {tablesInfo.map(info => (
                 <Table
                     key={info.tableNum}
