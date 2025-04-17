@@ -1,9 +1,10 @@
 export interface TableWrapperProp {
     columns: Column[];
     rows: Row[];
+    className: string;
 }
 
-export interface TableProp extends TableWrapperProp {
+export interface TableProp extends Omit<TableWrapperProp, "className"> {
     tableNum: number;
 }
 

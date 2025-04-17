@@ -37,7 +37,7 @@ const exampleRows: Row[] = [
 ];
 
 export const App = () => {
-    return <TableWrapper columns={exampleColumns} rows={exampleRows} />;
+    return <TableWrapper columns={exampleColumns} rows={exampleRows} className="table1" />;
 };
 
 export default App;
