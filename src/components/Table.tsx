@@ -1,5 +1,6 @@
 import {useEffect, useRef} from "react";
 import {TableProp} from "../constants/tableInterfaces";
+import { Column, TableProps } from "../constants/tableInterfaces";
 
 export const Table = (props: {
     info: TableProp;
