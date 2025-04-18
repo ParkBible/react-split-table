@@ -39,5 +39,5 @@
     ],
     "main": "dist/index.js",
     "module": "dist/index.js",
-    "types": "types/index.d.ts"
+    "types": "dist/index.d.ts"
 }
