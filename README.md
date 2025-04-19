@@ -10,12 +10,16 @@
 ## Usage
 
 ```typescript
-    const exampleColumns = [
+    import { TableWrapper } from "react-split-table";
+    import { Column, Row } from "react-split-table/types/src/constants/tableInterfaces";
+    import "react-split-table/styles/table.css";
+
+    const exampleColumns: Column[] = [
         { order: 1, title: "name" },
         {order: 2, title: "age"}
     ];
 
-    const exampleRows = [
+    const exampleRows: Row[] = [
         { order: 1, name: "Alice", age: 20 },
         { order: 2, name: "Ben", age: 21 }
     ];
