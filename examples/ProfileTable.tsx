@@ -1,5 +1,6 @@
-import {Column, Row} from "../constants/tableInterfaces";
-import TableWrapper from "./table/TableWrapper";
+import {Column, Row} from "../src/constants/tableInterfaces";
+import TableWrapper from "../src/components/TableWrapper";
+import React from "react";
 
 const exampleColumns: Column[] = [
     {order: 4, title: "name"},
@@ -36,8 +37,8 @@ const exampleRows: Row[] = [
     },
 ];
 
-export const App = () => {
+export const ProfileTable = () => {
     return <TableWrapper columns={exampleColumns} rows={exampleRows} className="table1" />;
 };
 
-export default App;
+export default ProfileTable;

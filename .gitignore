@@ -14,6 +14,7 @@ dist-ssr
 package-lock.json
 lib
 coverage
+package
 
 # Editor directories and files
 .vscode/*

@@ -1,24 +1,33 @@
 {
     "name": "react-split-table",
     "license": "MIT",
-    "version": "0.0.0",
+    "version": "0.0.20",
     "type": "module",
+    "description": "A React component for creating split tables with resizable columns and rows.",
+    "homepage": "https://github.com/ParkBible/react-split-table",
+    "keywords": [
+        "react",
+        "table",
+        "split",
+        "resizable",
+        "columns",
+        "rows"
+    ],
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b && vite build",
+        "build": "rm -rf dist dist-ts && tsc -b tsconfig.app.json && vite build",
         "lint": "eslint .",
-        "preview": "vite preview",
         "test": "vitest run",
         "test:watch": "vitest"
     },
-    "dependencies": {
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+    "peerDependencies": {
+        "react": "^17.0.0 || ^18.0.0 || ^19.0.0"
     },
     "devDependencies": {
         "@eslint/js": "^9.21.0",
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.3.0",
+        "@types/node": "^22.14.1",
         "@types/react": "^19.0.10",
         "@types/react-dom": "^19.0.4",
         "@vitejs/plugin-react": "^4.3.4",
@@ -30,9 +39,22 @@
         "globals": "^15.15.0",
         "jsdom": "^26.1.0",
         "prettier": "3.5.3",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
         "typescript": "~5.7.2",
         "typescript-eslint": "^8.24.1",
         "vite": "^6.2.0",
         "vitest": "^3.1.1"
-    }
+    },
+    "files": [
+        "dist",
+        "package.json",
+        "README.md",
+        "LICENSE",
+        "types",
+        "styles"
+    ],
+    "main": "dist/index.js",
+    "module": "dist/index.js",
+    "types": "types/src/index.d.ts"
 }
