@@ -1,7 +1,7 @@
 {
     "name": "react-split-table",
     "license": "MIT",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "type": "module",
     "description": "A React component for creating split tables with resizable columns and rows.",
     "homepage": "https://github.com/ParkBible/react-split-table",
