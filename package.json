@@ -1,11 +1,21 @@
 {
     "name": "react-split-table",
     "license": "MIT",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "type": "module",
+    "description": "A React component for creating split tables with resizable columns and rows.",
+    "homepage": "https://github.com/ParkBible/react-split-table",
+    "keywords": [
+        "react",
+        "table",
+        "split",
+        "resizable",
+        "columns",
+        "rows"
+    ],
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b tsconfig.app.json && vite build",
+        "build": "rm -rf dist && tsc -b tsconfig.app.json && vite build",
         "lint": "eslint .",
         "test": "vitest run"
     },
@@ -35,9 +45,10 @@
         "dist",
         "package.json",
         "README.md",
-        "LICENSE"
+        "LICENSE",
+        "types"
     ],
     "main": "dist/index.js",
     "module": "dist/index.js",
-    "types": "dist/index.d.ts"
+    "types": "types/index.d.ts"
 }
