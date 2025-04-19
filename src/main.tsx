@@ -1,4 +1,4 @@
 import {createRoot} from "react-dom/client";
-import App from "./components/App.tsx";
+import {TicketTable} from "../examples/TicketTable.tsx";
 
-createRoot(document.getElementById("root")!).render(<App />);
+createRoot(document.getElementById("root")!).render(<TicketTable />);
