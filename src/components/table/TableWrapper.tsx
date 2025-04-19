@@ -72,6 +72,7 @@ export const TableWrapper = (props: TableWrapperProp) => {
 
             // 마지막 테이블이 아니라면, 그 다음 테이블과 합친다.
             // 마지막 테이블이라면 테이블 하나를 추가한다.
+            // init
             if (!isLastTable) {
                 const nextTable = prev.find(t => t.tableNum === tableNum + 1);
 
