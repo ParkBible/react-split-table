@@ -31,7 +31,7 @@ export const TableWrapper = (props: TableWrapperProp) => {
             }
         }, 100);
 
-		const observer = new ResizeObserver(resizeHandler);
+        const observer = new ResizeObserver(resizeHandler);
         observer.observe(tableWrapperRef.current!);
 
         return () => {
@@ -68,7 +68,7 @@ export const TableWrapper = (props: TableWrapperProp) => {
                 tableNum: tablesInfo.length,
             };
 
-            const newTablesInfo = JSON.parse(JSON.stringify(prev)) as TableProp[];
+            const newTablesInfo = structuredClone(prev);
 
             // 마지막 테이블이 아니라면, 그 다음 테이블과 합친다.
             // 마지막 테이블이라면 테이블 하나를 추가한다.
