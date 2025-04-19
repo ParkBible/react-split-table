@@ -1,2 +1,2 @@
-export {default as TableWrapper} from "./components/TableWrapper";
-export * from "./components/TableWrapper";
+import TableWrapper from "./components/TableWrapper";
+export {TableWrapper};
