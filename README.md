@@ -7,6 +7,8 @@
 - Designed with mobile and small screens in mind
 - Break wide tables into manageable sections
 
+![example](https://github.com/ParkBible/react-split-table/raw/main/react-split-table-example.gif)
+
 ## Usage
 
 ```typescript
