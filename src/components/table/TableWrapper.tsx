@@ -1,8 +1,8 @@
 import {useEffect, useRef, useState} from "react";
-import "../../styles/table.css";
-import {TableProp, TableWrapperProp} from "../constants/tableInterfaces";
+import "../../../styles/table.css";
+import {TableProp, TableWrapperProp} from "../../constants/tableInterfaces";
 import Table from "./Table";
-import {debounce} from "../util/debounce";
+import {debounce} from "../../util/debounce";
 
 export const TableWrapper = (props: TableWrapperProp) => {
     const {columns, rows, className} = props;
@@ -97,7 +97,7 @@ export const TableWrapper = (props: TableWrapperProp) => {
     };
 
     return (
-        <div className={className} ref={tableWrapperRef}>
+        <div className={className} ref={tableWrapperRef} data-testid="table-wrapper">
             {tablesInfo.map(info => (
                 <Table
                     key={info.tableNum}
